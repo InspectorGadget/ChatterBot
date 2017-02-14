@@ -1,0 +1,12 @@
+---
+name: ChatterBot
+version: 1.0.0
+main: RTG\ChatterBot\Loader
+api: 2.1.0
+author: IG
+
+commands:
+    bot:
+        usage: "/bot toggle"
+        description: "A toggle command for the bot!"
+...

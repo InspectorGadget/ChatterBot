@@ -19,3 +19,83 @@
  */
 
 namespace RTG\ChatterBot;
+
+/* Essentials */
+use pocketmine\plugin\PluginBase;
+use pocketmine\event\Listener;
+use pocketmine\command\Command;
+use pocketmine\command\CommandSender;
+use pocketmine\utils\Config;
+use pocketmine\event\player\PlayerChatEvent;
+use pocketmine\Server;
+use pocketmine\Player;
+
+class Main extends PluginBase implements Listener {
+    
+    public $enable;
+    public $cfg;
+    
+    public function onEnable() {
+        $this->getServer()->getPluginManager()->registerEvents($this, $this);
+        $this->cfg = new Config($this->getDataFolder() . "config.yml");
+        $lines = count($this->cfg->get("messages"));
+        $this->getLogger()->warning($lines . " messages has been collected!");
+    }
+    
+    public function onCommand(CommandSender $sender, Command $command, $label, array $args) {
+        switch(strtolower($command->getName())) {
+            
+            case "bot":
+                
+                if(isset($args[0])) {
+                    switch(strtolower(strtolower($args[0]))) {
+                        
+                        case "toggle":
+                            
+                            if(isset($this->enable[strtolower($sender->getName())])) {
+                                
+                                unset($this->enable[strtolower($sender->getName())]);
+                                $sender->sendMessage("[BOT] I can't talk to you now :(");
+                                
+                            }
+                            else {
+                                
+                                $this->enable[strtolower($sender->getName())] = strtolower($sender->getName());
+                                $sender->sendMessage("[BOT] I've been enabled! We can talk now :D. Just use the word 'bot' in front of your message or questiom!");
+                                
+                            }
+                            
+                            return true;
+                        break;
+                         
+                    } 
+                }
+                else {
+                    $sender->sendMessage("Usage: /bot toggle");
+                }
+                
+                return true;
+            break;
+ 
+        }
+    }
+    
+    public function onChat(PlayerChatEvent $e) {
+        
+        $msg = $e->getMessage();
+        $p = $e->getPlayer();
+        $n = $p->getName();
+        $list = $this->cfg->get("messages")->getAll(true);
+            
+            if(in_array($msg, $list)) {
+                
+                $p->sendMessage("DEBUG, Got it!");
+                
+            }
+            else {
+                $this->getLogger()->warning("Error, not found!");
+            }
+            
+    }
+    
+}
