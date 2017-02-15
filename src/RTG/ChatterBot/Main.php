@@ -37,6 +37,7 @@ class Main extends PluginBase implements Listener {
     
     public function onEnable() {
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
+        $this->saveDefaultConfig();
         $this->cfg = new Config($this->getDataFolder() . "config.yml");
         $lines = count($this->cfg->get("messages"));
         $this->getLogger()->warning($lines . " messages has been collected!");
