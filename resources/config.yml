@@ -1,5 +1,15 @@
 ---
-messages:
+# Author: IG
+# For better usage and reply from the vote, please use the word 'bot' infront of your question or message! ( not mandatory ).
+# Don't worry about 'upper case' or 'lower case', this bot will read it :D
+interactions:
     - "Heya"
-    - "lmao"
+    - "hey"
+voting:
+    - "Your voting question"
+    - "How to vote?"
+    - "Add how many as you want!"
+votingsite:
+    - "Your voting site's link"
+    - "You can have multiple links!"
 ...

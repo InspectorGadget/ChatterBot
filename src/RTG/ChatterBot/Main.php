@@ -39,8 +39,12 @@ class Main extends PluginBase implements Listener {
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
         $this->saveDefaultConfig();
         $this->cfg = new Config($this->getDataFolder() . "config.yml");
-        $lines = count($this->cfg->get("messages"));
-        $this->getLogger()->warning($lines . " messages has been collected!");
+        $int = count($this->cfg->get("interactions"));
+        $vote = count($this->cfg->get("voting"));
+        $vlink = count($this->cfg->get("votesite"));
+        $this->getLogger()->warning($int . " messages has been collected!"); // DEBUG line
+        $this->getLogger()->warning($vote . " voting messages has been collected!");
+        $this->getLogger()->warning($vlink . " number of vote messages/links were collected!");
     }
     
     public function onCommand(CommandSender $sender, Command $command, $label, array $args) {
@@ -49,7 +53,7 @@ class Main extends PluginBase implements Listener {
             case "bot":
                 
                 if(isset($args[0])) {
-                    switch(strtolower(strtolower($args[0]))) {
+                    switch(strtolower($args[0])) {
                         
                         case "toggle":
                             
@@ -86,15 +90,27 @@ class Main extends PluginBase implements Listener {
         $msg = $e->getMessage();
         $p = $e->getPlayer();
         $n = $p->getName();
-        $list = $this->cfg->get("messages")->getAll(true);
+        $in = $this->cfg->get("interactions");
             
-            if(in_array($msg, $list)) {
+            if(in_array($msg, $in)) {
                 
-                $p->sendMessage("DEBUG, Got it!");
+                switch(mt_rand(1, 3)) {
+                    
+                    case "1":
+                        $p->sendMessage("Hey, " . $n . "!");
+                    break;
+                    case "2":
+                        $p->sendMessage("Holla, " . $n . "!");
+                    break;
+                    case "3":
+                        $p->sendMessage("Salut, " . $n . "!");
+                    break;
                 
+                }
+                   
             }
             else {
-                $this->getLogger()->warning("Error, not found!");
+                $this->getLogger()->warning("Error, not found!"); // DEBUG line for testing
             }
             
     }
