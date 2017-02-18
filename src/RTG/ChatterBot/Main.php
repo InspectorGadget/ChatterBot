@@ -90,9 +90,12 @@ class Main extends PluginBase implements Listener {
         $msg = strtolower($e->getMessage());
         $p = $e->getPlayer();
         $n = $p->getName();
-        $in = strtolower($this->cfg->get("interactions"));
+        
+        foreach($this->cfg->get("interactions") as $m) {
             
-            if(in_array($msg, $in)) {
+            $in = strtolower($m);
+            
+            if($msg === $in) {
                 
                 switch(mt_rand(1, 3)) {
                     
@@ -109,9 +112,8 @@ class Main extends PluginBase implements Listener {
                 }
                    
             }
-            else {
-                $this->getLogger()->warning("Error, not found!"); // DEBUG line for testing
-            }
+        
+        }
             
     }
     
