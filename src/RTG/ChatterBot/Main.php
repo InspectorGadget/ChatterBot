@@ -103,7 +103,7 @@ class Main extends PluginBase implements Listener {
                         $p->sendMessage("Holla, " . $n . "!");
                     break;
                     case "3":
-                        $p->sendMessage("Salut, " . $n . "!");
+                        $p->sendMessage("Bonjour, " . $n . "!");
                     break;
                 
                 }
