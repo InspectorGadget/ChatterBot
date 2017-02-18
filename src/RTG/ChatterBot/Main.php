@@ -87,10 +87,10 @@ class Main extends PluginBase implements Listener {
     
     public function onChat(PlayerChatEvent $e) {
         
-        $msg = $e->getMessage();
+        $msg = strtolower($e->getMessage());
         $p = $e->getPlayer();
         $n = $p->getName();
-        $in = $this->cfg->get("interactions");
+        $in = strtolower($this->cfg->get("interactions"));
             
             if(in_array($msg, $in)) {
                 
